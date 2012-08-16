@@ -6,39 +6,8 @@ var cocos  = require('cocos2d')   // Import the cocos2d module
   , events = require('events')    // Import the events module
   , geo    = require('geometry')  // Import the geometry module
   , ccp    = geo.ccp              // Short hand to create points
-
-// Convenient access to some constructors
-var Layer    = nodes.Layer
-  , Scene    = nodes.Scene
-  , Label    = nodes.Label
+  , Scene  = require('/Scene')
   , Director = cocos.Director
-
-/**
- * @class Initial application layer
- * @extends cocos.nodes.Layer
- */
-function Cocos2d () {
-    // You must always call the super class constructor
-    Cocos2d.superclass.constructor.call(this)
-
-    // Get size of canvas
-    var s = Director.sharedDirector.winSize
-
-    // Create label
-    var label = new Label({ string:   'Cocos2d'
-                          , fontName: 'Arial'
-                          , fontSize: 76
-                          })
-
-    // Position the label in the centre of the view
-    label.position = ccp(s.width / 2, s.height / 2)
-
-    // Add label to layer
-    this.addChild(label)
-}
-
-// Inherit from cocos.nodes.Layer
-Cocos2d.inherit(Layer)
 
 /**
  * Entry point for the application
@@ -51,15 +20,8 @@ function main () {
 
     // Wait for the director to finish preloading our assets
     events.addListener(director, 'ready', function (director) {
-        // Create a scene and layer
-        var scene = new Scene()
-          , layer = new Cocos2d()
-
-        // Add our layer to the scene
-        scene.addChild(layer)
-
         // Run the scene
-        director.replaceScene(scene)
+        director.replaceScene(Scene.create())
     })
 
     // Preload our assets
