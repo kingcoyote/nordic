@@ -1,5 +1,6 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
+  , Player = require('/Player')
 
 /**
  * @class Initial application layer
@@ -9,23 +10,25 @@ function GameLayer () {
     // You must always call the super class constructor
     GameLayer.superclass.constructor.call(this)
 
-    // Get size of canvas
     var s = cocos.Director.sharedDirector.winSize
 
-    // Create label
-    var label = new cocos.nodes.Label({ string:   'Cocos2d'
-                          , fontName: 'Arial'
-                          , fontSize: 76
-                          })
+    var player = new Player();
+    player.position = geo.ccp(s.width / 2, s.height / 2)
+    this.addChild({ child:player });
 
-    // Position the label in the centre of the view
-    label.position = geo.ccp(s.width / 2, s.height / 2)
+    this.player = player;
 
-    // Add label to layer
-    this.addChild(label)
+    this.isKeyboardEnabled = true;
 }
 
-GameLayer.inherit(cocos.nodes.Layer);
+GameLayer.inherit(cocos.nodes.Layer, {
+    keyDown : function(e) {
+        // 38 = up
+        // 40 = down
+        // 37 = left
+        // 39 = right
+    }
+});
 
 module.exports = GameLayer;
 
