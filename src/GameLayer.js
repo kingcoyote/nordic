@@ -23,10 +23,36 @@ function GameLayer () {
 
 GameLayer.inherit(cocos.nodes.Layer, {
     keyDown : function(e) {
-        // 38 = up
-        // 40 = down
-        // 37 = left
-        // 39 = right
+        switch (e.which) {
+            case 38:
+                this.player.movement.up = true;
+                break;
+            case 40:
+                this.player.movement.down = true;
+                break;
+            case 37:
+                this.player.movement.left = true;
+                break;
+            case 39:
+                this.player.movement.right = true;
+                break;
+        }
+    },
+    keyUp : function(e) {
+        switch (e.which) {
+            case 38:
+                this.player.movement.up = false;
+                break;
+            case 40:
+                this.player.movement.down = false;
+                break;
+            case 37:
+                this.player.movement.left = false;
+                break;
+            case 39:
+                this.player.movement.right = false;
+                break;
+        }
     }
 });
 
