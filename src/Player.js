@@ -3,14 +3,15 @@ var cocos = require('cocos2d')
 
 function Player() {
     Player.superclass.constructor.call(this)
-
-    this.anchorPoint = new geo.Point(-0.5, -0.5)
+    
+    this.anchorPoint = new geo.Point(0.5, 0.5);
 
     var sprite = new cocos.nodes.Sprite({
         file: '/resources/player.png',
         rect: new geo.Rect(0, 0, 16, 16)
     });
 
+    sprite.anchorPoint = (new geo.Point(0, 0))
     this.addChild({ child:sprite });
     this.contentSize = sprite.contentSize;
     this.sprite = sprite;
@@ -28,26 +29,44 @@ function Player() {
 Player.inherit(cocos.nodes.Node, {
     update: function(dt) {
         var pos = this.position
-          , box = this.boundingBox
           , win = cocos.Director.sharedDirector.winSize
 
-        if (this.movement.left && this.position.x >= 0) {
+        if (this.movement.left) {
             pos.x -= this.speed * dt
         }
 
-        if (this.movement.right && this.position.x <= win.width) {
+        if (this.movement.right) {
             pos.x += this.speed * dt
         }
 
-        if (this.movement.up && this.position.y <= win.height) {
+        if (this.movement.up) {
             pos.y += this.speed * dt
         }
 
-        if (this.movement.down && this.position.y >= 0) {
+        if (this.movement.down) {
             pos.y -= this.speed * dt
         }
-        pos.x = Math.floor(pos.x);
-        pos.y = Math.floor(pos.y);
+
+        this.position = pos
+
+        if (geo.rectGetMinX(this.boundingBox) < 0) {
+            pos.x = this.boundingBox.size.width * this.anchorPoint.x
+        }
+
+        if (geo.rectGetMaxX(this.boundingBox) > win.width) {
+            pos.x = win.width - this.boundingBox.size.width * this.anchorPoint.x
+        }
+
+        if (geo.rectGetMinY(this.boundingBox) < 0) {
+            pos.y = this.boundingBox.size.height * this.anchorPoint.y
+        }
+
+        if (geo.rectGetMaxY(this.boundingBox) > win.height) {
+            pos.y = win.height - this.boundingBox.size.height * this.anchorPoint.y
+        }
+        // if the edges of the box are offscreen
+        // force back on screen
+
         this.position = pos
     }
 });
