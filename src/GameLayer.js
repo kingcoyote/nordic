@@ -13,7 +13,7 @@ function GameLayer () {
     var s = cocos.Director.sharedDirector.winSize
 
     var player = new Player();
-    player.position = geo.ccp(0, 0)
+    player.position = geo.ccp(s.width / 2, s.height / 2)
     this.addChild({ child:player });
 
     this.player = player;
