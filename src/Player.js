@@ -4,7 +4,7 @@ var cocos = require('cocos2d')
 function Player() {
     Player.superclass.constructor.call(this)
 
-    this.anchorPoint = geo.ccp(0.5, 0.5)
+    this.anchorPoint = new geo.Point(-0.5, -0.5)
 
     var sprite = new cocos.nodes.Sprite({
         file: '/resources/player.png',
@@ -31,19 +31,19 @@ Player.inherit(cocos.nodes.Node, {
           , box = this.boundingBox
           , win = cocos.Director.sharedDirector.winSize
 
-        if (this.movement.left && geo.rectGetMinX(box) >= 0) {
+        if (this.movement.left && this.position.x >= 0) {
             pos.x -= this.speed * dt
         }
 
-        if (this.movement.right && geo.rectGetMaxX(box) <= win.width) {
+        if (this.movement.right && this.position.x <= win.width) {
             pos.x += this.speed * dt
         }
 
-        if (this.movement.up && geo.rectGetMaxY(box) <= win.height) {
+        if (this.movement.up && this.position.y <= win.height) {
             pos.y += this.speed * dt
         }
 
-        if (this.movement.down && geo.rectGetMinY(box) >= 0) {
+        if (this.movement.down && this.position.y >= 0) {
             pos.y -= this.speed * dt
         }
         pos.x = Math.floor(pos.x);
