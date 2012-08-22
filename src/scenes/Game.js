@@ -1,14 +1,14 @@
 var cocos = require('cocos2d')
-  , GameLayer = require('/GameLayer')
+  , Player = require('/layers/Player')
 
 var Scene = {
     create : function() {
         // Create a scene and layer
         var scene = new cocos.nodes.Scene()
-          , layer = new GameLayer()
+          , player = new Player()
 
         // Add our layer to the scene
-        scene.addChild(layer)
+        scene.addChild(player)
 
         return scene;
     }

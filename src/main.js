@@ -6,7 +6,7 @@ var cocos  = require('cocos2d')   // Import the cocos2d module
   , events = require('events')    // Import the events module
   , geo    = require('geometry')  // Import the geometry module
   , ccp    = geo.ccp              // Short hand to create points
-  , Scene  = require('/Scene')
+  , Scene  = require('/scenes/Game')
   , Director = cocos.Director
 
 /**

@@ -1,14 +1,14 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
-  , Player = require('/Player')
+  , Player = require('/nodes/Player')
 
 /**
  * @class Initial application layer
  * @extends cocos.nodes.Layer
  */
-function GameLayer () {
+function Layer () {
     // You must always call the super class constructor
-    GameLayer.superclass.constructor.call(this)
+    Layer.superclass.constructor.call(this)
 
     var s = cocos.Director.sharedDirector.winSize
 
@@ -21,7 +21,7 @@ function GameLayer () {
     this.isKeyboardEnabled = true;
 }
 
-GameLayer.inherit(cocos.nodes.Layer, {
+Layer.inherit(cocos.nodes.Layer, {
     keyDown : function(e) {
         switch (e.which) {
             case 38:
@@ -56,5 +56,5 @@ GameLayer.inherit(cocos.nodes.Layer, {
     }
 });
 
-module.exports = GameLayer;
+module.exports = Layer;
 
