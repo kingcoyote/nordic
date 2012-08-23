@@ -5,18 +5,52 @@ var cocos = require('cocos2d')
 function Player() {
     Player.superclass.constructor.call(this)
     
+    var frameSize = new geo.Size(30,30)
+
+    // begin aniatmion
+
+    var texture = new cocos.Texture2D({file: "/resources/player.png"});
+
+    var frame0 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 0, 0, frameSize.width, frameSize.height)})
+      , frame1 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 1, 0, frameSize.width, frameSize.height)})
+      , frame2 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 2, 0, frameSize.width, frameSize.height)})
+      , frame3 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 3, 0, frameSize.width, frameSize.height)})
+      , frame4 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 4, 0, frameSize.width, frameSize.height)})
+      , frame5 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 5, 0, frameSize.width, frameSize.height)})
+      , frame6 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 6, 0, frameSize.width, frameSize.height)})
+      , frame7 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 7, 0, frameSize.width, frameSize.height)})
+      , frame8 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 8, 0, frameSize.width, frameSize.height)})
+      , frame9 = new cocos.SpriteFrame({texture: texture, rect: geo.rectMake(frameSize.width * 3 + frameSize.width * 9, 0, frameSize.width, frameSize.height)})
+
+    var sprite = new cocos.nodes.Sprite({frame: frame0});
+    this.addChild(sprite);
+
+    var animFrames = [
+        frame0,
+        frame1,
+        frame2,
+        frame3,
+        frame4,
+        frame5,
+        frame6,
+        frame7,
+        frame8,
+        frame9
+    ];
+
+    var animation = new cocos.Animation({frames: animFrames, delay: 0.1})
+      , animate   = new cocos.actions.Animate({animation: animation, restoreOriginalFrame: false})
+      , seq       = new cocos.actions.Sequence({
+            actions: [
+                animate
+            ]
+        })
+
+    sprite.runAction(new cocos.actions.RepeatForever(seq));
+
+    // end animation
+
     this.anchorPoint = new geo.Point(0.5, 0.5);
-
-    var sprite = new cocos.nodes.Sprite({
-        file: '/resources/player.png',
-        rect: new geo.Rect(0, 0, 16, 16)
-    });
-    sprite.anchorPoint = (new geo.Point(-0.5, -0.5))
-
-    this.addChild({ child:sprite });
-    this.contentSize = sprite.contentSize;
-    this.sprite = sprite;
-
     this.speed = 180;
     this.movement = { 
         up    : false,
