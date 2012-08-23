@@ -64,8 +64,16 @@ Player.inherit(cocos.nodes.Node, {
         if (geo.rectGetMaxY(this.boundingBox) > win.height) {
             pos.y = win.height - this.boundingBox.size.height * this.anchorPoint.y
         }
-        // if the edges of the box are offscreen
-        // force back on screen
+        
+        this.position = pos
+
+        sandbags = this.parent.parent.env.sandbags
+
+        for (var i in sandbags) {
+            if (geo.rectOverlapsRect(this.boundingBox, sandbags[i].boundingBox)) {
+                // revert position
+            }
+        }
 
         this.position = pos
     }

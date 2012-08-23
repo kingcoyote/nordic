@@ -13,6 +13,9 @@ var Scene = {
         scene.addChild(player)
         scene.addChild(env)
 
+        scene.env = env;
+        scene.player = player;
+
         return scene;
     }
 }
