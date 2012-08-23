@@ -18,7 +18,16 @@ function Layer () {
 
     this.player = player;
 
+    var reticle = new cocos.nodes.Sprite({
+        rect: new geo.Rect(0, 0, 32, 32),
+        file: '/resources/reticle.png'
+    });
+
+    this.addChild({ child: reticle });
+    this.reticle = reticle;
+
     this.isKeyboardEnabled = true;
+    this.isMouseEnabled = true;
 }
 
 Layer.inherit(cocos.nodes.Layer, {
@@ -53,6 +62,9 @@ Layer.inherit(cocos.nodes.Layer, {
                 this.player.movement.right = false;
                 break;
         }
+    },
+    mouseMoved : function(e) {
+        this.reticle.position = e.locationInCanvas
     }
 });
 
