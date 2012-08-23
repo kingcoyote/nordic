@@ -1,5 +1,6 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
+  , util  = require('util')
 
 function Player() {
     Player.superclass.constructor.call(this)
@@ -10,8 +11,8 @@ function Player() {
         file: '/resources/player.png',
         rect: new geo.Rect(0, 0, 16, 16)
     });
+    sprite.anchorPoint = (new geo.Point(-0.5, -0.5))
 
-    sprite.anchorPoint = (new geo.Point(0, 0))
     this.addChild({ child:sprite });
     this.contentSize = sprite.contentSize;
     this.sprite = sprite;
@@ -28,7 +29,7 @@ function Player() {
 
 Player.inherit(cocos.nodes.Node, {
     update: function(dt) {
-        var pos = this.position
+        var pos = util.copy(this.position)
           , win = cocos.Director.sharedDirector.winSize
 
         if (this.movement.left) {
@@ -47,31 +48,29 @@ Player.inherit(cocos.nodes.Node, {
             pos.y -= this.speed * dt
         }
 
-        this.position = pos
+        var box = new geo.Rect(pos.x, pos.y, this.contentSize.width, this.contentSize.height)
 
-        if (geo.rectGetMinX(this.boundingBox) < 0) {
-            pos.x = this.boundingBox.size.width * this.anchorPoint.x
+        if (geo.rectGetMinX(box) < 0) {
+            return false;
         }
 
-        if (geo.rectGetMaxX(this.boundingBox) > win.width) {
-            pos.x = win.width - this.boundingBox.size.width * this.anchorPoint.x
+        if (geo.rectGetMaxX(box) > win.width) {
+            return false;
         }
 
-        if (geo.rectGetMinY(this.boundingBox) < 0) {
-            pos.y = this.boundingBox.size.height * this.anchorPoint.y
+        if (geo.rectGetMinY(box) < 0) {
+            return false;
         }
 
-        if (geo.rectGetMaxY(this.boundingBox) > win.height) {
-            pos.y = win.height - this.boundingBox.size.height * this.anchorPoint.y
+        if (geo.rectGetMaxY(box) > win.height) {
+            return false;
         }
         
-        this.position = pos
-
         sandbags = this.parent.parent.env.sandbags
 
         for (var i in sandbags) {
-            if (geo.rectOverlapsRect(this.boundingBox, sandbags[i].boundingBox)) {
-                // revert position
+            if (geo.rectOverlapsRect(box, sandbags[i].boundingBox)) {
+                return false;
             }
         }
 
