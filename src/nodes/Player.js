@@ -48,6 +48,7 @@ function Player() {
 
     sprite.runAction(new cocos.actions.RepeatForever(seq));
 
+    sprite.anchorPoint = new geo.Point(0, 0)
     // end animation
 
     this.anchorPoint = new geo.Point(0.5, 0.5);
@@ -63,52 +64,52 @@ function Player() {
 
 Player.inherit(cocos.nodes.Node, {
     update: function(dt) {
-        var pos = util.copy(this.position)
+        var box 
           , win = cocos.Director.sharedDirector.winSize
+          , vel = new geo.Point(0, 0)
 
         if (this.movement.left) {
-            pos.x -= this.speed * dt
+            vel.x -= this.speed * dt
         }
 
         if (this.movement.right) {
-            pos.x += this.speed * dt
+            vel.x += this.speed * dt
         }
 
         if (this.movement.up) {
-            pos.y += this.speed * dt
+            vel.y += this.speed * dt
         }
 
         if (this.movement.down) {
-            pos.y -= this.speed * dt
+            vel.y -= this.speed * dt
         }
 
-        var box = new geo.Rect(pos.x, pos.y, this.contentSize.width, this.contentSize.height)
-
-        if (geo.rectGetMinX(box) < 0) {
-            return false;
-        }
-
-        if (geo.rectGetMaxX(box) > win.width) {
-            return false;
-        }
-
-        if (geo.rectGetMinY(box) < 0) {
-            return false;
-        }
-
-        if (geo.rectGetMaxY(box) > win.height) {
-            return false;
-        }
-        
         sandbags = this.parent.parent.env.sandbags
 
+        box = new geo.Rect(this.position.x, this.position.y, 28, 28)
+        box.origin.x += vel.x
+
+        // check if i can move left/right
         for (var i in sandbags) {
             if (geo.rectOverlapsRect(box, sandbags[i].boundingBox)) {
-                return false;
+                // cannot move that way
+                vel.x = 0
+            }
+        }
+        
+        box = new geo.Rect(this.position.x, this.position.y, 28, 28)
+        box.origin.y += vel.y
+
+        // check if i can move up/down
+        for (var i in sandbags) {
+            if (geo.rectOverlapsRect(box, sandbags[i].boundingBox)) {
+                // cannot move that way
+                vel.y = 0
             }
         }
 
-        this.position = pos
+        this.position.x += vel.x
+        this.position.y += vel.y
     }
 });
 
