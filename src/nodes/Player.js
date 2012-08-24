@@ -93,8 +93,11 @@ Player.prototype.setAnimation = function setAnimation(animationName) {
             case 'walkingRight':
                 animationName = 'standingRight';
                 break;
-            default:
+            case 'walkingDown':
                 animationName = 'standingDown';
+                break;
+            default:
+                animationName = this.animationName;
                 break;
         }
     }
