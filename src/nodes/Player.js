@@ -8,7 +8,7 @@ function Player() {
     this.texture = new cocos.Texture2D({ file: "/resources/player.png" })
     this.sprite = new cocos.nodes.Sprite();
     this.addChild({ child:this.sprite});
-    this.sprite.anchorPoint = new geo.Point(0, 0)
+    this.sprite.anchorPoint = new geo.Point(0.5, 0.5)
     this.setAnimation('standingDown')
 
     this.anchorPoint = new geo.Point(0.5, 0.5);
@@ -125,24 +125,29 @@ Player.prototype.setAnimation = function setAnimation(animationName) {
       , animate   = new cocos.actions.Animate({animation: animation, restoreOriginalFrame: false})
       , seq       = new cocos.actions.Sequence({
             actions: [
-                new cocos.actions.FlipX({ flipX: animationData.mirror }),
                 animate
             ]
         })
     
+    if (animationData.mirror) {
+        this.sprite.scaleX = -1
+    } else {
+        this.sprite.scaleX = 1
+    }
+
     this.sprite.runAction(new cocos.actions.RepeatForever(seq));
 }
 
 Player.prototype.frameSize = new geo.Size(30, 29)
 
 Player.prototype.animation = {
-    'standingDown'    : {frames:[[0,0]], mirror:false},
-    'walkingDown'     : {frames:[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0]], mirror:false},
-    'standingUp'    : {frames:[[0,1]], mirror:false},
-    'walkingUp'     : {frames:[[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1],[8,1],[9,1],[10,1]], mirror:false},
-    'standingLeft'    : {frames:[[0,1]], mirror:false},
-    'walkingLeft'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2]], mirror:false},
-    'standingRight'    : {frames:[[0,1]], mirror:true},
+    'standingDown'    : {frames:[[0,0]]},
+    'walkingDown'     : {frames:[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0]]},
+    'standingUp'    : {frames:[[0,1]]},
+    'walkingUp'     : {frames:[[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1],[8,1],[9,1],[10,1]]},
+    'standingLeft'    : {frames:[[0,2]]},
+    'walkingLeft'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2]]},
+    'standingRight'    : {frames:[[0,2]], mirror:true},
     'walkingRight'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2]], mirror:true},
 }
 
