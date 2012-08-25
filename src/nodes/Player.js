@@ -52,7 +52,13 @@ Player.inherit(cocos.nodes.Node, {
 
         // check if i can move left/right
         for (var i in sandbags) {
-            if (geo.rectOverlapsRect(box, sandbags[i].boundingBox)) {
+            var sandBox = new geo.Rect(
+                sandbags[i].position.x + this.parent.parent.env.position.x,
+                sandbags[i].position.y + this.parent.parent.env.position.y,
+                sandbags[i].contentSize.width,
+                sandbags[i].contentSize.height
+            )
+            if (geo.rectOverlapsRect(box, sandBox)) {
                 // cannot move that way
                 vel.x = 0
             }
@@ -63,7 +69,7 @@ Player.inherit(cocos.nodes.Node, {
 
         // check if i can move up/down
         for (var i in sandbags) {
-            if (geo.rectOverlapsRect(box, sandbags[i].boundingBox)) {
+            if (geo.rectOverlapsRect(box, sandBox)) {
                 // cannot move that way
                 vel.y = 0
             }
