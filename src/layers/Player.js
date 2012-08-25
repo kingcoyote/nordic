@@ -34,15 +34,19 @@ Layer.inherit(cocos.nodes.Layer, {
     keyDown : function(e) {
         switch (e.which) {
             case 38:
+            case 87:
                 this.player.movement.up = true;
                 break;
             case 40:
+            case 83:
                 this.player.movement.down = true;
                 break;
             case 37:
+            case 65:
                 this.player.movement.left = true;
                 break;
             case 39:
+            case 68:
                 this.player.movement.right = true;
                 break;
         }
@@ -50,15 +54,19 @@ Layer.inherit(cocos.nodes.Layer, {
     keyUp : function(e) {
         switch (e.which) {
             case 38:
+            case 87:
                 this.player.movement.up = false;
                 break;
             case 40:
+            case 83:
                 this.player.movement.down = false;
                 break;
             case 37:
+            case 65:
                 this.player.movement.left = false;
                 break;
             case 39:
+            case 68:
                 this.player.movement.right = false;
                 break;
         }
