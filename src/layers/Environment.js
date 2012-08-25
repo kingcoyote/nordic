@@ -12,11 +12,12 @@ function Layer(zone) {
     for (var i in this.zone.items) {
         var item = this.zone.items[i]
         var node = new cocos.nodes.Node
+        node.anchorPoint = new geo.Point(0.5, 0.5)
         var sprite = new cocos.nodes.Sprite({
             'file' : item.image,
             'rect' : new geo.Rect(0, 0, item.size.width, item.size.height)
         })
-        sprite.anchorPoint = new geo.Point(0, 0)
+        sprite.anchorPoint = new geo.Point(0.5, 0.5)
         node.addChild({ child:sprite })
         node.contentSize = sprite.contentSize
         node.position = new geo.Point(item.position.x, item.position.y)

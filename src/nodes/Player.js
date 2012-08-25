@@ -8,6 +8,7 @@ function Player() {
     this.texture = new cocos.Texture2D({ file: "/resources/player.png" })
     this.sprite = new cocos.nodes.Sprite();
     this.addChild({ child:this.sprite});
+    this.contentSize = this.sprite.contentSize;
     this.sprite.anchorPoint = new geo.Point(0.5, 0.5)
     this.setAnimation('standingDown')
 
@@ -46,7 +47,7 @@ Player.inherit(cocos.nodes.Node, {
 
         sandbags = this.parent.parent.env.sandbags
 
-        box = new geo.Rect(this.position.x, this.position.y, 28, 28)
+        box = new geo.Rect(this.position.x, this.position.y, this.frameSize.width, this.frameSize.height)
         box.origin.x += vel.x
 
         // check if i can move left/right
