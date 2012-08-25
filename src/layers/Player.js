@@ -10,69 +10,59 @@ function Layer () {
     // You must always call the super class constructor
     Layer.superclass.constructor.call(this)
 
-    var s = cocos.Director.sharedDirector.winSize
+    var player = new Player()
+    player.position = new geo.Point(250,250)
+    this.addChild({ child:player })
+    this.player = player
 
-    var player = new Player();
-    player.position = geo.ccp(s.width / 2, s.height / 2)
-    this.addChild({ child:player });
+    this.isKeyboardEnabled = true
+    this.isMouseEnabled = true
 
-    this.player = player;
-
-    var reticle = new cocos.nodes.Sprite({
-        rect: new geo.Rect(0, 0, 32, 32),
-        file: '/resources/reticle.png'
-    });
-
-    this.addChild({ child: reticle });
-    this.reticle = reticle;
-
-    this.isKeyboardEnabled = true;
-    this.isMouseEnabled = true;
+    this.scheduleUpdate()
 }
 
 Layer.inherit(cocos.nodes.Layer, {
     keyDown : function(e) {
+        var v = this.player.velocity
         switch (e.which) {
-            case 38:
-            case 87:
-                this.player.movement.up = true;
+            case 87: // w
+                v.y += 1
                 break;
-            case 40:
-            case 83:
-                this.player.movement.down = true;
+            case 83: // s
+                v.y -= 1
                 break;
-            case 37:
-            case 65:
-                this.player.movement.left = true;
+            case 65: // a
+                v.x -= 1
                 break;
-            case 39:
-            case 68:
-                this.player.movement.right = true;
+            case 68: // d
+                v.x += 1
                 break;
         }
+
+        this.player.velocity = v
     },
     keyUp : function(e) {
+        var v = this.player.velocity
         switch (e.which) {
-            case 38:
-            case 87:
-                this.player.movement.up = false;
+            case 87: // w
+                v.y -= 1
                 break;
-            case 40:
-            case 83:
-                this.player.movement.down = false;
+            case 83: // s
+                v.y += 1
                 break;
-            case 37:
-            case 65:
-                this.player.movement.left = false;
+            case 65: // a
+                v.x += 1
                 break;
-            case 39:
-            case 68:
-                this.player.movement.right = false;
+            case 68: // d
+                v.x -= 1
                 break;
         }
+
+        this.player.velocity = v
     },
-    mouseMoved : function(e) {
-        this.reticle.position = e.locationInCanvas
+    update : function(dt) {
+        this.player.position.x += this.player.velocity.x * this.player.speed * dt
+        this.player.position.y += this.player.velocity.y * this.player.speed * dt
     }
 });
 

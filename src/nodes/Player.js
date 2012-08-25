@@ -14,66 +14,13 @@ function Player() {
 
     this.anchorPoint = new geo.Point(0.5, 0.5);
     this.speed = 70;
-    this.movement = { 
-        up    : false,
-        down  : false,
-        left  : false,
-        right : false
-    };
+    this.velocity = new geo.Point(0,0)
     this.scheduleUpdate();
 }
 
 Player.inherit(cocos.nodes.Node, {
     update: function(dt) {
-        var box 
-          , win = cocos.Director.sharedDirector.winSize
-          , vel = new geo.Point(0, 0)
-
-        if (this.movement.left) {
-            vel.x -= this.speed * dt
-        }
-
-        if (this.movement.right) {
-            vel.x += this.speed * dt
-        }
-
-        if (this.movement.up) {
-            vel.y += this.speed * dt
-        }
-
-        if (this.movement.down) {
-            vel.y -= this.speed * dt
-        }
-
-        sandbags = this.parent.parent.env.sandbags
-
-        box = new geo.Rect(this.position.x, this.position.y, this.frameSize.width, this.frameSize.height)
-        box.origin.x += vel.x
-
-        // check if i can move left/right
-        for (var i in sandbags) {
-            var sandBox = new geo.Rect(
-                sandbags[i].position.x + this.parent.parent.env.position.x,
-                sandbags[i].position.y + this.parent.parent.env.position.y,
-                sandbags[i].contentSize.width,
-                sandbags[i].contentSize.height
-            )
-            if (geo.rectOverlapsRect(box, sandBox)) {
-                // cannot move that way
-                vel.x = 0
-            }
-        }
-        
-        box = new geo.Rect(this.position.x, this.position.y, 28, 28)
-        box.origin.y += vel.y
-
-        // check if i can move up/down
-        for (var i in sandbags) {
-            if (geo.rectOverlapsRect(box, sandBox)) {
-                // cannot move that way
-                vel.y = 0
-            }
-        }
+        var vel = this.velocity 
 
         if (vel.y == 0 && vel.x == 0) animationName = 'stop'
         if (vel.y < 0) animationName = 'walkingDown'
@@ -83,18 +30,6 @@ Player.inherit(cocos.nodes.Node, {
 
         this.setAnimation(animationName)
 
-        var s = cocos.Director.sharedDirector.winSize
-        if(
-            (this.position.x < 100 && vel.x < 0) || 
-            (this.position.x > s.width - 100 && vel.x > 0) || 
-            (this.position.y < 100 && vel.y < 0) || 
-            (this.position.y > s.height - 100 && vel.y > 0)) {
-            this.parent.parent.env.position.x -= vel.x
-            this.parent.parent.env.position.y -= vel.y
-        } else {
-            this.position.x += vel.x
-            this.position.y += vel.y
-        }
     }
 });
 
