@@ -30,6 +30,8 @@ function Layer(zone) {
         this.sandbags.push(sandbag)
         this.addChild({ child:sandbag })
     }
+
+    this.position = new geo.Point(this.zone.position.x, this.zone.position.y);
 }
 
 Layer.inherit(cocos.nodes.Layer, {

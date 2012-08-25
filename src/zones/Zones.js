@@ -6,6 +6,10 @@ module.exports = {
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' 
             }
-        ]
+        ],
+        position : { 
+            x: 0,
+            y: 0
+        }
     }
 }

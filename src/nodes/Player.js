@@ -83,8 +83,18 @@ Player.inherit(cocos.nodes.Node, {
 
         this.setAnimation(animationName)
 
-        this.position.x += vel.x
-        this.position.y += vel.y
+        var s = cocos.Director.sharedDirector.winSize
+        if(
+            (this.position.x < 100 && vel.x < 0) || 
+            (this.position.x > s.width - 100 && vel.x > 0) || 
+            (this.position.y < 100 && vel.y < 0) || 
+            (this.position.y > s.height - 100 && vel.y > 0)) {
+            this.parent.parent.env.position.x -= vel.x
+            this.parent.parent.env.position.y -= vel.y
+        } else {
+            this.position.x += vel.x
+            this.position.y += vel.y
+        }
     }
 });
 
