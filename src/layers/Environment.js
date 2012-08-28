@@ -34,8 +34,11 @@ function Layer(zone) {
     this.position = new geo.Point(this.zone.position.x, this.zone.position.y);
 }
 
-Layer.inherit(cocos.nodes.Layer, {
 
+Layer.inherit(cocos.nodes.Layer, {
+    getSandbags : function() {
+        return this.sandbags
+    }
 })
 
 module.exports = Layer

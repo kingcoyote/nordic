@@ -1,6 +1,7 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
   , Player = require('/nodes/Player')
+  , util = require('util')
 
 /**
  * @class Initial application layer
@@ -18,51 +19,97 @@ function Layer () {
     this.isKeyboardEnabled = true
     this.isMouseEnabled = true
 
+    this.movement = {
+        up : false,
+        down : false,
+        left : false,
+        right : false
+    }
+
     this.scheduleUpdate()
 }
 
 Layer.inherit(cocos.nodes.Layer, {
     keyDown : function(e) {
-        var v = this.player.velocity
         switch (e.which) {
             case 87: // w
-                v.y += 1
+                this.movement.up = true
                 break;
             case 83: // s
-                v.y -= 1
+                this.movement.down = true
                 break;
             case 65: // a
-                v.x -= 1
+                this.movement.left = true
                 break;
             case 68: // d
-                v.x += 1
+                this.movement.right = true
                 break;
         }
-
-        this.player.velocity = v
     },
     keyUp : function(e) {
-        var v = this.player.velocity
         switch (e.which) {
             case 87: // w
-                v.y -= 1
+                this.movement.up = false
                 break;
             case 83: // s
-                v.y += 1
+                this.movement.down = false
                 break;
             case 65: // a
-                v.x += 1
+                this.movement.left = false
                 break;
             case 68: // d
-                v.x -= 1
+                this.movement.right = false
                 break;
         }
-
-        this.player.velocity = v
     },
     update : function(dt) {
-        this.player.position.x += this.player.velocity.x * this.player.speed * dt
-        this.player.position.y += this.player.velocity.y * this.player.speed * dt
+        var box = new geo.Rect(
+                this.player.position.x,
+                this.player.position.y,
+                this.player.contentSize.width,
+                this.player.contentSize.height
+            )
+          , vel = new geo.Point(0, 0)
+          , tempBox = util.copy(box)
+
+        if (this.movement.up) vel.y += 1
+        if (this.movement.down) vel.y -= 1
+        if (this.movement.left) vel.x -= 1
+        if (this.movement.right) vel.x += 1
+
+        tempBox.origin.x += vel.x * this.player.speed * dt
+        tempBox.origin.y += vel.y * this.player.speed * dt
+
+        if (this.parent.playerAllowed(tempBox)) {
+            this.player.position.x += vel.x * this.player.speed * dt
+            this.player.position.y += vel.y * this.player.speed * dt
+            this.player.velocity = vel
+            return
+        }
+
+        tempBox = util.copy(box)
+        tempBox.origin.x += vel.x * this.player.speed * dt
+
+        if (this.parent.playerAllowed(tempBox)) {
+            this.player.position.x += vel.x * this.player.speed * dt
+            vel.y = 0
+            this.player.velocity = vel
+            return
+        }
+
+        tempBox.origin.y += vel.y * this.player.speed * dt
+
+        if (this.parent.playerAllowed(tempBox)) {
+            this.player.position.y += vel.y * this.player.speed * dt
+            vel.x = 0
+            this.player.velocity = vel
+            return
+        }
+
+        vel.y = 0
+        vel.x = 0
+        this.player.velocity = vel
+        return
     }
 });
 
