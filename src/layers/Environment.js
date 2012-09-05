@@ -37,6 +37,14 @@ function Layer(zone) {
 Layer.inherit(cocos.nodes.Layer, {
     getSandbags : function() {
         return this.sandbags
+    },
+    adjustOffset : function(x, y) {
+        var pos = this.position
+
+        pos.x -= x
+        pos.y -= y
+
+        this.position = pos
     }
 })
 

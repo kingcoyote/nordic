@@ -86,6 +86,7 @@ Layer.inherit(cocos.nodes.Layer, {
             pos.y += vel.y * this.player.speed * dt
             this.player.velocity = vel
             this.player.position = pos
+            this.parent.updatePlayerPosition(this.player.boundingBox)
             return
         }
 
@@ -98,6 +99,7 @@ Layer.inherit(cocos.nodes.Layer, {
             vel.y = 0
             this.player.velocity = vel
             this.player.position = pos
+            this.parent.updatePlayerPosition(this.player.boundingBox)
             return
         }
 
@@ -109,13 +111,26 @@ Layer.inherit(cocos.nodes.Layer, {
             vel.x = 0
             this.player.velocity = vel
             this.player.position = pos
+            this.parent.updatePlayerPosition(this.player.boundingBox)
             return
         }
 
         vel.y = 0
         vel.x = 0
         this.player.velocity = vel
+
+        this.parent.updatePlayerPosition(this.player.boundingBox)
+
         return
+    },
+    adjustOffset : function(x, y) {
+        var pos = this.position
+        console.log(x, y);
+
+        pos.x -= x
+        pos.y -= y
+
+        this.position = pos
     }
 });
 

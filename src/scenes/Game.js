@@ -19,6 +19,7 @@ var Scene = {
         scene.player = player;
 
         scene.playerAllowed = this.playerAllowed
+        scene.updatePlayerPosition = this.updatePlayerPosition;
 
         return scene;
     },
@@ -31,6 +32,27 @@ var Scene = {
         }
 
         return true
+    },
+    updatePlayerPosition : function(player) {
+        var screen = cocos.Director.sharedDirector.winSize
+          , buffer = 80
+          , deadzone = new geo.Rect(buffer, buffer, screen.width - buffer*2, screen.height - buffer*2)
+
+        if (! geo.rectOverlapsRect(player, deadzone)) {
+            var x = y = 0
+
+            if (geo.rectGetMinX(player) < geo.rectGetMinX(deadzone)) {
+                x = geo.rectGetMinX(deadzone) - geo.rectGetMinX(player)
+                x = -2
+            } else if (geo.rectGetMaxX(player) < geo.rectGetMaxX(deadzone)) {
+                x = geo.rectGetMaxX(player) - geo.rectGetMaxX(deadzone)
+                x = 2
+            }
+
+
+            this.environment.adjustOffset(x, y)
+            this.player.adjustOffset(x, y)
+        }
     }
 }
 
