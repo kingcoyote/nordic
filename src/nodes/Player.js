@@ -6,13 +6,13 @@ function Player() {
     Player.superclass.constructor.call(this)
     
     this.texture = new cocos.Texture2D({ file: "/resources/player.png" })
-    this.sprite = new cocos.nodes.Sprite();
+    this.sprite = new cocos.nodes.Sprite({
+        rect: new geo.Rect(0, 0, 30, 29)
+    });
     this.addChild({ child:this.sprite});
     this.contentSize = this.sprite.contentSize;
-    this.sprite.anchorPoint = new geo.Point(0.5, 0.5)
     this.setAnimation('standingDown')
 
-    this.anchorPoint = new geo.Point(0.5, 0.5);
     this.speed = 70;
     this.velocity = new geo.Point(0,0)
     this.scheduleUpdate();

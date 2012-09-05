@@ -81,9 +81,11 @@ Layer.inherit(cocos.nodes.Layer, {
         tempBox.origin.y += vel.y * this.player.speed * dt
 
         if (this.parent.playerAllowed(tempBox)) {
-            this.player.position.x += vel.x * this.player.speed * dt
-            this.player.position.y += vel.y * this.player.speed * dt
+            var pos = util.copy(this.player.position)
+            pos.x += vel.x * this.player.speed * dt
+            pos.y += vel.y * this.player.speed * dt
             this.player.velocity = vel
+            this.player.position = pos
             return
         }
 
@@ -91,18 +93,22 @@ Layer.inherit(cocos.nodes.Layer, {
         tempBox.origin.x += vel.x * this.player.speed * dt
 
         if (this.parent.playerAllowed(tempBox)) {
-            this.player.position.x += vel.x * this.player.speed * dt
+            var pos = util.copy(this.player.position)
+            pos.x += vel.x * this.player.speed * dt
             vel.y = 0
             this.player.velocity = vel
+            this.player.position = pos
             return
         }
 
         tempBox.origin.y += vel.y * this.player.speed * dt
 
         if (this.parent.playerAllowed(tempBox)) {
-            this.player.position.y += vel.y * this.player.speed * dt
+            var pos = util.copy(this.player.position)
+            pos.y += vel.y * this.player.speed * dt
             vel.x = 0
             this.player.velocity = vel
+            this.player.position = pos
             return
         }
 
