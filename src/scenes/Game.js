@@ -19,7 +19,8 @@ var Scene = {
         scene.player = player;
 
         scene.playerAllowed = this.playerAllowed
-        scene.updatePlayerPosition = this.updatePlayerPosition;
+        scene.updatePlayerPosition = this.updatePlayerPosition
+        scene.getPlayerStartPoint = this.getPlayerStartPoint
 
         return scene;
     },
@@ -61,6 +62,9 @@ var Scene = {
             this.environment.adjustOffset(x, y)
             this.player.adjustOffset(x, y)
         }
+    },
+    getPlayerStartPoint : function() {
+        return this.environment.getPlayerStartPoint()
     }
 }
 

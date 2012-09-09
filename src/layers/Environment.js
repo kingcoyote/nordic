@@ -23,9 +23,10 @@ function Layer(zone) {
         node.position = new geo.Point(item.position.x, item.position.y)
         this.addChild({ child:node })
         
-        var sandbag = new geo.Rect(item.position.x, item.position.y, item.size.width, item.size.height)
-
-        this.sandbags.push(sandbag)
+        if(item.sandbag) {
+            var sandbag = new geo.Rect(item.position.x, item.position.y, item.size.width, item.size.height)
+            this.sandbags.push(sandbag)
+        }
     }
 
     this.position = new geo.Point(this.zone.position.x, this.zone.position.y);
@@ -57,6 +58,9 @@ Layer.inherit(cocos.nodes.Layer, {
         pos.y -= y
 
         this.position = pos
+    },
+    getPlayerStartPoint : function() {
+        return this.zone.startPoint
     }
 })
 

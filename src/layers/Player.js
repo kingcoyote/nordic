@@ -12,7 +12,6 @@ function Layer () {
     Layer.superclass.constructor.call(this)
 
     var player = new Player()
-    player.position = new geo.Point(250,250)
     this.addChild({ child:player })
     this.player = player
 
@@ -30,6 +29,10 @@ function Layer () {
 }
 
 Layer.inherit(cocos.nodes.Layer, {
+    onEnter : function() {
+        Layer.superclass.onEnter.call(this)
+        this.player.position = this.parent.getPlayerStartPoint()
+    },
     keyDown : function(e) {
         switch (e.which) {
             case 87: // w
