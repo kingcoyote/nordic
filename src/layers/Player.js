@@ -124,13 +124,12 @@ Layer.inherit(cocos.nodes.Layer, {
         return
     },
     adjustOffset : function(x, y) {
-        var pos = this.position
-        console.log(x, y);
+        var pos = this.player.position
 
         pos.x -= x
         pos.y -= y
 
-        this.position = pos
+        this.player.position = pos
     }
 });
 

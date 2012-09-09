@@ -26,7 +26,7 @@ var Scene = {
     playerAllowed : function(box) {
         var sandbags = this.environment.getSandbags()
         for (var i in sandbags) {
-            if (geo.rectOverlapsRect(sandbags[i].boundingBox, box)) {
+            if (geo.rectOverlapsRect(sandbags[i], box)) {
                 return false;
             }
         }
@@ -35,18 +35,26 @@ var Scene = {
     },
     updatePlayerPosition : function(player) {
         var screen = cocos.Director.sharedDirector.winSize
-          , buffer = 80
+          , buffer = 80 
           , deadzone = new geo.Rect(buffer, buffer, screen.width - buffer*2, screen.height - buffer*2)
 
         if (! geo.rectOverlapsRect(player, deadzone)) {
             var x = y = 0
 
-            if (geo.rectGetMinX(player) < geo.rectGetMinX(deadzone)) {
-                x = geo.rectGetMinX(deadzone) - geo.rectGetMinX(player)
-                x = -2
-            } else if (geo.rectGetMaxX(player) < geo.rectGetMaxX(deadzone)) {
-                x = geo.rectGetMaxX(player) - geo.rectGetMaxX(deadzone)
-                x = 2
+            if (geo.rectGetMaxX(player) < geo.rectGetMinX(deadzone)) {
+                // left
+                x = geo.rectGetMaxX(player) - geo.rectGetMinX(deadzone)
+            } else if (geo.rectGetMinX(player) > geo.rectGetMaxX(deadzone)) {
+                // right
+                x = geo.rectGetMinX(player) - geo.rectGetMaxX(deadzone)
+            }
+
+            if (geo.rectGetMaxY(player) < geo.rectGetMinY(deadzone)) {
+                // bottom
+                y = geo.rectGetMaxY(player) - geo.rectGetMinY(deadzone)
+            } else if (geo.rectGetMinY(player) > geo.rectGetMaxY(deadzone)) {
+                // top
+                y = geo.rectGetMinY(player) - geo.rectGetMaxY(deadzone)
             }
 
 

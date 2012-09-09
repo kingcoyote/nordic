@@ -1,6 +1,7 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
   , Zones = require('/zones/Zones')
+  , util  = require('util')
 
 function Layer(zone) {
     Layer.superclass.constructor.call(this)
@@ -22,12 +23,9 @@ function Layer(zone) {
         node.position = new geo.Point(item.position.x, item.position.y)
         this.addChild({ child:node })
         
-        var sandbag = new cocos.nodes.Node()
-        sandbag.position = new geo.Point(item.position.x, item.position.y)
-        sandbag.contentSize = new geo.Size(item.size.width, item.size.height)
+        var sandbag = new geo.Rect(item.position.x, item.position.y, item.size.width, item.size.height)
 
         this.sandbags.push(sandbag)
-        this.addChild({ child:sandbag })
     }
 
     this.position = new geo.Point(this.zone.position.x, this.zone.position.y);
@@ -36,7 +34,21 @@ function Layer(zone) {
 
 Layer.inherit(cocos.nodes.Layer, {
     getSandbags : function() {
-        return this.sandbags
+        var sandbags = [];
+
+        for (var i in this.sandbags) {
+            var s = util.copy(this.sandbags[i])
+              , pos = s.origin
+
+            pos.x += this.position.x
+            pos.y += this.position.y
+
+            s.origin = pos
+
+            sandbags.push(s)
+        }
+
+        return sandbags
     },
     adjustOffset : function(x, y) {
         var pos = this.position
