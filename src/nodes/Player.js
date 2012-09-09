@@ -7,7 +7,7 @@ function Player() {
     
     this.texture = new cocos.Texture2D({ file: "/resources/player.png" })
     this.sprite = new cocos.nodes.Sprite({
-        rect: new geo.Rect(0, 0, 30, 29)
+        rect: new geo.Rect(0, 0, this.frameSize.width, this.frameSize.height)
     });
     this.addChild({ child:this.sprite});
     this.contentSize = this.sprite.contentSize;
