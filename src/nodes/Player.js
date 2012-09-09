@@ -73,7 +73,7 @@ Player.prototype.setAnimation = function setAnimation(animationName) {
         }))
     }
 
-    var animation = new cocos.Animation({frames: animFrames, delay: 0.075})
+    var animation = new cocos.Animation({frames: animFrames, delay: animationData.speed})
       , animate   = new cocos.actions.Animate({animation: animation, restoreOriginalFrame: false})
       , seq       = new cocos.actions.Sequence({
             actions: [
@@ -93,14 +93,14 @@ Player.prototype.setAnimation = function setAnimation(animationName) {
 Player.prototype.frameSize = new geo.Size(26.5, 30)
 
 Player.prototype.animation = {
-    'standingDown'    : {frames:[[0,0]]},
-    'walkingDown'     : {frames:[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0]]},
-    'standingUp'    : {frames:[[0,1]]},
-    'walkingUp'     : {frames:[[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1]]},
-    'standingLeft'    : {frames:[[0,2]]},
-    'walkingLeft'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2]]},
-    'standingRight'    : {frames:[[0,2]], mirror:true},
-    'walkingRight'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2]], mirror:true},
+    'standingDown'    : {frames:[[0,0]], speed:0.075},
+    'walkingDown'     : {frames:[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0]], speed:0.075},
+    'standingUp'    : {frames:[[0,1]], speed:0.075},
+    'walkingUp'     : {frames:[[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1]], speed:0.075},
+    'standingLeft'    : {frames:[[0,2]], speed:0.075},
+    'walkingLeft'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2]], speed:0.05},
+    'standingRight'    : {frames:[[0,2]], mirror:true, speed:0.075 },
+    'walkingRight'     : {frames:[[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2]], mirror:true, speed:0.075},
 }
 
 module.exports = Player;
