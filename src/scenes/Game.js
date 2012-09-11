@@ -12,8 +12,8 @@ var Scene = {
           , environment    = new Environment('main')
 
         // Add our layer to the scene
-        scene.addChild(environment)
-        scene.addChild(player)
+        scene.addChild({ child:environment, z: -1})
+        scene.addChild({ child:player, z: 5})
 
         scene.environment = environment;
         scene.player = player;
@@ -77,7 +77,7 @@ var Scene = {
         console.log('going to ' + zone);
         this.removeChild(this.environment);
         this.environment = new Environment(zone);
-        this.addChild(this.environment);
+        this.addChild({ child:this.environment, z:-1 });
     },
     getPlayerStartPoint : function() {
         return this.environment.getPlayerStartPoint()

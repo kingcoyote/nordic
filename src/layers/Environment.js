@@ -22,7 +22,7 @@ function Layer(zone) {
         node.addChild({ child:sprite })
         node.contentSize = sprite.contentSize
         node.position = new geo.Point(item.position.x, item.position.y)
-        this.addChild({ child:node, zOrder:item.zOrder })
+        this.addChild({ child:node, z:item.z })
         
         var box = node.boundingBox
 

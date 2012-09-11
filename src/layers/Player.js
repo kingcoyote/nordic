@@ -12,7 +12,7 @@ function Layer () {
     Layer.superclass.constructor.call(this)
 
     var player = new Player()
-    this.addChild({ child:player, zOrder:1 })
+    this.addChild({ child:player, z:1 })
     this.player = player
 
     this.isKeyboardEnabled = true

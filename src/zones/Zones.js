@@ -6,14 +6,14 @@ module.exports = {
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
                 sandbag: true,
-                zOrder: 5
+                z: 5
             },
             {
                 position: { x:100, y:150 },
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
                 sandbag: true,
-                zOrder: 5
+                z: 5
             },
             {
                 position: { x:200, y:300 },
@@ -24,7 +24,7 @@ module.exports = {
                     {x:123,y:0,width:77,height:120},
                     {x:78,y:76,width:45,height:44},
                 ],
-                zOrder: -1
+                z: -1
             }
         ],
         position : { 
@@ -46,7 +46,7 @@ module.exports = {
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
                 sandbag: true,
-                zOrder: 5
+                z: 1
             }
         ],
         position : { 
