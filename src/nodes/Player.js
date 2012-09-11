@@ -10,6 +10,7 @@ function Player() {
         rect: new geo.Rect(0, 0, this.frameSize.width, this.frameSize.height)
     });
     this.addChild({ child:this.sprite});
+    this.sprite.anchorPoint = new geo.Point(0,0);
     this.contentSize = this.sprite.contentSize;
     this.setAnimation('standingDown')
 
@@ -82,9 +83,11 @@ Player.prototype.setAnimation = function setAnimation(animationName) {
         })
     
     if (animationData.mirror) {
+        this.sprite.anchorPoint = new geo.Point(1, 0)
         this.sprite.scaleX = -1
     } else {
         this.sprite.scaleX = 1
+        this.sprite.anchorPoint = new geo.Point(0, 0)
     }
 
     this.sprite.runAction(new cocos.actions.RepeatForever(seq));

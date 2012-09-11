@@ -17,14 +17,15 @@ function Layer(zone) {
             'file' : item.image,
             'rect' : new geo.Rect(0, 0, item.size.width, item.size.height)
         })
-        sprite.anchorPoint = new geo.Point(0.5, 0.5)
+        sprite.anchorPoint = new geo.Point(0, 0)
         node.addChild({ child:sprite })
         node.contentSize = sprite.contentSize
         node.position = new geo.Point(item.position.x, item.position.y)
         this.addChild({ child:node })
         
         if(item.sandbag) {
-            var sandbag = new geo.Rect(item.position.x, item.position.y, item.size.width, item.size.height)
+            var box = node.boundingBox
+              , sandbag = new geo.Rect(box.origin.x, box.origin.y, box.size.width, box.size.height)
             this.sandbags.push(sandbag)
         }
     }
