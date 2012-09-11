@@ -21,12 +21,24 @@ function Layer(zone) {
         node.addChild({ child:sprite })
         node.contentSize = sprite.contentSize
         node.position = new geo.Point(item.position.x, item.position.y)
-        this.addChild({ child:node })
+        this.addChild({ child:node, zOrder:item.zOrder })
         
-        if(item.sandbag) {
-            var box = node.boundingBox
-              , sandbag = new geo.Rect(box.origin.x, box.origin.y, box.size.width, box.size.height)
+        var box = node.boundingBox
+
+        if(item.sandbag === true) {
+            var sandbag = new geo.Rect(box.origin.x, box.origin.y, box.size.width, box.size.height)
             this.sandbags.push(sandbag)
+        } else if (typeof item.sandbag === 'object') {
+            for(var i in item.sandbag) {
+                var s = item.sandbag[i]
+                  , sandbag = new geo.Rect(
+                        box.origin.x + s.x,
+                        box.origin.y + s.y,
+                        s.width,
+                        s.height
+                    )
+                this.sandbags.push(sandbag)
+            }
         }
     }
 

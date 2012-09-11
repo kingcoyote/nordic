@@ -12,8 +12,8 @@ var Scene = {
           , environment    = new Environment('main')
 
         // Add our layer to the scene
-        scene.addChild(player)
         scene.addChild(environment)
+        scene.addChild(player)
 
         scene.environment = environment;
         scene.player = player;
