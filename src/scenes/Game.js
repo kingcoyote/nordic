@@ -2,6 +2,7 @@ var cocos = require('cocos2d')
   , geo = require('geometry')
   , Player = require('/layers/Player')
   , Environment    = require('/layers/Environment')
+  , Hud = require('/layers/Hud')
 
 
 var Scene = {
@@ -10,10 +11,12 @@ var Scene = {
         var scene = new cocos.nodes.Scene()
           , player = new Player()
           , environment    = new Environment('main')
+          , hud = new Hud()
 
         // Add our layer to the scene
         scene.addChild({ child:environment, z: -1})
         scene.addChild({ child:player, z: 5})
+        scene.addChild({ child:hud, z: 999999 })
 
         scene.environment = environment;
         scene.player = player;
