@@ -10,7 +10,7 @@ About
 -------------------------------------------------------------------------------
 Nordic Adventure is the working title of a 2D action adventure in the style of 
 classic games such as The Legend Of Zelda, Beyond Oasis or Terranigma. It is 
-built in Javascript on the [cocos2d-javascript](http://cocos2d-javascript) 
+built in Javascript on the [cocos2d-javascript](http://cocos2d-javascript.com) 
 engine.
 
 License
