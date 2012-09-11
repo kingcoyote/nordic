@@ -42,6 +42,20 @@ module.exports = {
     house : {
         items : [
             {
+                position: { x:0, y:0 },
+                size: { width:640, height:480 },
+                image:  '/resources/houseInside.png' ,
+                sandbag: [
+                    { x:110,y:0,width:10,height:480 },
+                    { x:520,y:0,width:10,height:480 },
+                    { x:0,y:360,width:640,height:10 },
+                    { x:0,y:80,width:295,height:40 },
+                    { x:330,y:80,width:315,height:40 },
+                    { x:0,y:70,width:640,height:20 }
+                ],
+                z: -1
+            },
+            {
                 position: { x:200, y:200 },
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
@@ -54,8 +68,11 @@ module.exports = {
             y: 0
         },
         startPoint : {
-            x: 100,
-            y: 200
+            x: 320,
+            y: 240
+        },
+        doors : {
+            entrance : { x:295, y:90, width:30, height:10, zone:'main', name:'house' }
         }
     }
 }
