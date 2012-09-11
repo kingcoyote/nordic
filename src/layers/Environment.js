@@ -9,6 +9,7 @@ function Layer(zone) {
     this.zone = Zones[zone]
 
     this.sandbags = []
+    this.doors = []
 
     for (var i in this.zone.items) {
         var item = this.zone.items[i]
@@ -42,6 +43,15 @@ function Layer(zone) {
         }
     }
 
+    for (var i in this.zone.doors) {
+        var door = this.zone.doors[i];
+        this.doors.push({
+            rect: new geo.Rect(door.x, door.y, door.width, door.height),
+            zone: door.zone,
+            name: door.name
+        })
+    }
+
     this.position = new geo.Point(this.zone.position.x, this.zone.position.y);
 }
 
@@ -63,6 +73,23 @@ Layer.inherit(cocos.nodes.Layer, {
         }
 
         return sandbags
+    },
+    getDoors : function() {
+        var doors = [];
+
+        for (var i in this.doors) {
+            var s = util.copy(this.doors[i])
+              , pos = s.rect.origin
+
+            pos.x += this.position.x
+            pos.y += this.position.y
+
+            s.rect.origin = pos
+
+            doors.push(s)
+        }
+
+        return doors
     },
     adjustOffset : function(x, y) {
         var pos = this.position

@@ -34,6 +34,28 @@ module.exports = {
         startPoint : {
             x: 200,
             y: 100
+        },
+        doors : {
+            house : { x:278,y:326,width:45,height:50,zone:'house',name:'entrance' }
+        }
+    },
+    house : {
+        items : [
+            {
+                position: { x:200, y:200 },
+                size: { width:16, height:16 },
+                image:  '/resources/box.png' ,
+                sandbag: true,
+                zOrder: 5
+            }
+        ],
+        position : { 
+            x: 0,
+            y: 0
+        },
+        startPoint : {
+            x: 100,
+            y: 200
         }
     }
 }

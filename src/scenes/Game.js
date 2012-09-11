@@ -21,6 +21,7 @@ var Scene = {
         scene.playerAllowed = this.playerAllowed
         scene.updatePlayerPosition = this.updatePlayerPosition
         scene.getPlayerStartPoint = this.getPlayerStartPoint
+        scene.changeZones = this.changeZones
 
         return scene;
     },
@@ -62,6 +63,21 @@ var Scene = {
             this.environment.adjustOffset(x, y)
             this.player.adjustOffset(x, y)
         }
+        
+        var doors = this.environment.getDoors();
+        for (var i in doors) {
+            var d = doors[i];
+
+            if (geo.rectOverlapsRect(d.rect, player)) {
+                this.changeZones(d.zone, d.name)
+            }
+        }
+    },
+    changeZones: function(zone, name) {
+        console.log('going to ' + zone);
+        this.removeChild(this.environment);
+        this.environment = new Environment(zone);
+        this.addChild(this.environment);
     },
     getPlayerStartPoint : function() {
         return this.environment.getPlayerStartPoint()
