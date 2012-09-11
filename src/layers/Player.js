@@ -2,6 +2,7 @@ var cocos = require('cocos2d')
   , geo   = require('geometry')
   , Player = require('/nodes/Player')
   , util = require('util')
+  , events = require('events')
 
 /**
  * @class Initial application layer
@@ -14,6 +15,9 @@ function Layer () {
     var player = new Player()
     this.addChild({ child:player, z:1 })
     this.player = player
+
+    this.currentHealth = 10
+    this.maxHealth = 10
 
     this.isKeyboardEnabled = true
     this.isMouseEnabled = true
@@ -43,6 +47,11 @@ Layer.inherit(cocos.nodes.Layer, {
             case 68: // d
                 this.movement.right = true
                 break;
+            case 32:
+                this.currentHealth++
+                this.maxHealth++
+                events.trigger(this.parent, 'player health change', this.currentHealth, this.maxHealth)
+                break
         }
     },
     keyUp : function(e) {
