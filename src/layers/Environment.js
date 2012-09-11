@@ -99,8 +99,8 @@ Layer.inherit(cocos.nodes.Layer, {
 
         this.position = pos
     },
-    getPlayerStartPoint : function() {
-        return this.zone.startPoint
+    getPosition : function(name) {
+        return this.zone.startPoint[name]
     }
 })
 

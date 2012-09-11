@@ -18,6 +18,8 @@ var Scene = {
         scene.environment = environment;
         scene.player = player;
 
+        scene.player.setPosition(scene.environment.getPosition('default'))
+
         scene.playerAllowed = this.playerAllowed
         scene.updatePlayerPosition = this.updatePlayerPosition
         scene.getPlayerStartPoint = this.getPlayerStartPoint
@@ -74,14 +76,11 @@ var Scene = {
         }
     },
     changeZones: function(zone, name) {
-        console.log('going to ' + zone);
         this.removeChild(this.environment);
         this.environment = new Environment(zone);
         this.addChild({ child:this.environment, z:-1 });
+        this.player.setPosition(this.environment.getPosition(name))
     },
-    getPlayerStartPoint : function() {
-        return this.environment.getPlayerStartPoint()
-    }
 }
 
 module.exports = Scene;

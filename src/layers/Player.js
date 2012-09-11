@@ -29,10 +29,6 @@ function Layer () {
 }
 
 Layer.inherit(cocos.nodes.Layer, {
-    onEnter : function() {
-        Layer.superclass.onEnter.call(this)
-        this.player.position = this.parent.getPlayerStartPoint()
-    },
     keyDown : function(e) {
         switch (e.which) {
             case 87: // w
@@ -132,6 +128,10 @@ Layer.inherit(cocos.nodes.Layer, {
         pos.x -= x
         pos.y -= y
 
+        this.player.position = pos
+    },
+    setPosition : function(pos) {
+        var pos = new geo.Point(pos.x, pos.y)
         this.player.position = pos
     }
 });

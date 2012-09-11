@@ -32,8 +32,8 @@ module.exports = {
             y: 0
         },
         startPoint : {
-            x: 200,
-            y: 100
+            'default': { x: 200, y: 100 },
+            'house' : { x:290,y:270 }
         },
         doors : {
             house : { x:278,y:326,width:45,height:50,zone:'house',name:'entrance' }
@@ -68,8 +68,7 @@ module.exports = {
             y: 0
         },
         startPoint : {
-            x: 320,
-            y: 240
+            'entrance' : { x: 300, y: 130 }
         },
         doors : {
             entrance : { x:295, y:90, width:30, height:10, zone:'main', name:'house' }
