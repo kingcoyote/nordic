@@ -1,6 +1,0 @@
-{ "jahProject": { "version": "0.2.2" }
-, "libs": ["cocos2d"]
-, "externalize": { "cocos2d": "cocos2d.js"
-                 , "jah": "cocos2d.js"
-                 }
-}
