@@ -41,8 +41,21 @@ var Scene = {
         return true
     },
     updatePlayerPosition : function(player) {
+        var doors = this.environment.getDoors();
+        for (var i in doors) {
+            var d = doors[i];
+
+            if (geo.rectOverlapsRect(d.rect, player)) {
+                this.changeZones(d.zone, d.name)
+            }
+        }
+
+        if (this.environment.scrollable() === false) {
+            return
+        }
+        
         var screen = cocos.Director.sharedDirector.winSize
-          , buffer = 80 
+          , buffer = 160 
           , deadzone = new geo.Rect(buffer, buffer, screen.width - buffer*2, screen.height - buffer*2)
 
         if (! geo.rectOverlapsRect(player, deadzone)) {
@@ -67,15 +80,6 @@ var Scene = {
 
             this.environment.adjustOffset(x, y)
             this.player.adjustOffset(x, y)
-        }
-        
-        var doors = this.environment.getDoors();
-        for (var i in doors) {
-            var d = doors[i];
-
-            if (geo.rectOverlapsRect(d.rect, player)) {
-                this.changeZones(d.zone, d.name)
-            }
         }
     },
     changeZones: function(zone, name) {

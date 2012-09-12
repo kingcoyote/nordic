@@ -72,6 +72,7 @@ module.exports = {
         },
         doors : {
             entrance : { x:295, y:90, width:30, height:10, zone:'main', name:'house' }
-        }
+        },
+        scrollable : false
     }
 }

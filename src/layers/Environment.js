@@ -101,6 +101,9 @@ Layer.inherit(cocos.nodes.Layer, {
     },
     getPosition : function(name) {
         return this.zone.startPoint[name]
+    },
+    scrollable : function() {
+        return this.zone.scrollable !== false
     }
 })
 
