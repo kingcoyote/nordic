@@ -18,6 +18,7 @@ function Layer () {
 
     this.currentHealth = 10
     this.maxHealth = 10
+    this.healthChanged = true
 
     this.isKeyboardEnabled = true
     this.isMouseEnabled = true
@@ -33,6 +34,10 @@ function Layer () {
 }
 
 Layer.inherit(cocos.nodes.Layer, {
+    onEnter : function() {
+        Layer.superclass.onEnter.call(this)
+        events.trigger(this.parent, "player health change", this.currentHealth, this.maxHealth)
+    },
     keyDown : function(e) {
         switch (e.which) {
             case 87: // w
@@ -47,11 +52,6 @@ Layer.inherit(cocos.nodes.Layer, {
             case 68: // d
                 this.movement.right = true
                 break;
-            case 32:
-                this.currentHealth++
-                this.maxHealth++
-                events.trigger(this.parent, 'player health change', this.currentHealth, this.maxHealth)
-                break
         }
     },
     keyUp : function(e) {
@@ -71,6 +71,10 @@ Layer.inherit(cocos.nodes.Layer, {
         }
     },
     update : function(dt) {
+        this.updatePosition(dt)
+        this.updateHealth()
+    },
+    updatePosition : function(dt) {
         var box = new geo.Rect(
                 this.player.position.x,
                 this.player.position.y,
@@ -130,6 +134,12 @@ Layer.inherit(cocos.nodes.Layer, {
         this.parent.updatePlayerPosition(this.player.boundingBox)
 
         return
+    },
+    updateHealth : function() {
+        if (this.healthChanged === true) {
+            events.trigger(this.parent, "player health change", this.currentHealth, this.maxHealth)
+            this.healthChanged = false
+        }
     },
     adjustOffset : function(x, y) {
         var pos = this.player.position
