@@ -1,6 +1,7 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
   , HealthBar = require('/nodes/hud/HealthBar')
+  , Inventory = require('/nodes/hud/Inventory')
   , events = require('events')
 
 function Hud() {
@@ -12,11 +13,17 @@ function Hud() {
     var healthBar = new HealthBar()
     healthBar.position = new geo.Point(10, screen.height - 10)
     this.healthBar = healthBar
-    this.addChild(healthBar)
+    this.addChild(this.healthBar)
 
 
     // minimap
+    
     // inventory
+    var inventory = new Inventory()
+    inventory.position = new geo.Point(10, 10)
+    this.inventory = inventory
+    this.addChild(this.inventory)
+
     // money
 }
 
