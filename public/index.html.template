@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Cocos2d</title>
+        <title>Nordic</title>
         <style type="text/css" media="screen">
             body {
                 font-family: Helvetica, Arial, sans-serif;
@@ -28,9 +28,9 @@
         </style>
     </head>
     <body>
-        <h1>Cocos2d</h1>
+        <h1>Nordic</h1>
         <div class="cocos2d-app">
-            Loading Cocos2d...
+            Loading Nordic...
             ${scripts}
         </div>
     </body>
