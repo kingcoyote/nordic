@@ -12,7 +12,7 @@ function Hud() {
 
     // health bar
     var healthBar = new HealthBar()
-    healthBar.position = new geo.Point(10, screen.height - 10)
+    healthBar.position = new geo.Point(10, screen.height - healthBar.contentSize.height)
     this.healthBar = healthBar
     this.addChild(this.healthBar)
 

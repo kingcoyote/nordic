@@ -4,10 +4,13 @@ var cocos = require('cocos2d')
 function HealthBar() {
     HealthBar.superclass.constructor.call(this)
 
+    this.anchorPoint = new geo.Point(0,0)
+
     var label = new cocos.nodes.Label({ string: "" })
-    label.anchorPoint = new geo.Point(0,1)
     this.label = label
     this.addChild(label)
+
+    this.contentSize = this.label.contentSize
 }
 
 HealthBar.inherit(cocos.nodes.Node, {
