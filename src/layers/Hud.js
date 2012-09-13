@@ -1,6 +1,7 @@
 var cocos = require('cocos2d')
   , geo   = require('geometry')
   , HealthBar = require('/nodes/hud/HealthBar')
+  , Minimap = require('/nodes/hud/Minimap')
   , Inventory = require('/nodes/hud/Inventory')
   , events = require('events')
 
@@ -17,6 +18,10 @@ function Hud() {
 
 
     // minimap
+    var minimap = new Minimap()
+    minimap.position = new geo.Point(screen.width - 10 - minimap.contentSize.width, 10)
+    this.minimap = minimap
+    this.addChild(this.minimap)
     
     // inventory
     var inventory = new Inventory()
