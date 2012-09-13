@@ -13,33 +13,37 @@ function Layer(zone) {
 
     for (var i in this.zone.items) {
         var item = this.zone.items[i]
-        var node = new cocos.nodes.Node
-        var sprite = new cocos.nodes.Sprite({
-            'file' : item.image,
-            'rect' : new geo.Rect(0, 0, item.size.width, item.size.height)
-        })
-        sprite.anchorPoint = new geo.Point(0, 0)
-        node.addChild({ child:sprite })
-        node.contentSize = sprite.contentSize
-        node.position = new geo.Point(item.position.x, item.position.y)
-        this.addChild({ child:node, z:item.z })
-        
-        var box = node.boundingBox
+        switch (item.type) {
+            case 'sprite':
+                var node = new cocos.nodes.Node
+                var sprite = new cocos.nodes.Sprite({
+                    'file' : item.image,
+                    'rect' : new geo.Rect(0, 0, item.size.width, item.size.height)
+                })
+                sprite.anchorPoint = new geo.Point(0, 0)
+                node.addChild({ child:sprite })
+                node.contentSize = sprite.contentSize
+                node.position = new geo.Point(item.position.x, item.position.y)
+                this.addChild({ child:node, z:item.z })
+                
+                var box = node.boundingBox
 
-        if(item.sandbag === true) {
-            var sandbag = new geo.Rect(box.origin.x, box.origin.y, box.size.width, box.size.height)
-            this.sandbags.push(sandbag)
-        } else if (typeof item.sandbag === 'object') {
-            for(var i in item.sandbag) {
-                var s = item.sandbag[i]
-                  , sandbag = new geo.Rect(
-                        box.origin.x + s.x,
-                        box.origin.y + s.y,
-                        s.width,
-                        s.height
-                    )
-                this.sandbags.push(sandbag)
-            }
+                if(item.sandbag === true) {
+                    var sandbag = new geo.Rect(box.origin.x, box.origin.y, box.size.width, box.size.height)
+                    this.sandbags.push(sandbag)
+                } else if (typeof item.sandbag === 'object') {
+                    for(var i in item.sandbag) {
+                        var s = item.sandbag[i]
+                          , sandbag = new geo.Rect(
+                                box.origin.x + s.x,
+                                box.origin.y + s.y,
+                                s.width,
+                                s.height
+                            )
+                        this.sandbags.push(sandbag)
+                    }
+                }
+                break;
         }
     }
 

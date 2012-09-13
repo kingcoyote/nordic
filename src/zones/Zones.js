@@ -2,6 +2,7 @@ module.exports = {
     main : {
         items : [
             {
+                type: 'sprite',
                 position: { x:100, y:100 },
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
@@ -9,6 +10,7 @@ module.exports = {
                 z: 5
             },
             {
+                type : 'sprite',
                 position: { x:100, y:150 },
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
@@ -16,6 +18,7 @@ module.exports = {
                 z: 5
             },
             {
+                type : 'sprite',
                 position: { x:200, y:300 },
                 size: { width:200, height:120 },
                 image: '/resources/house.png',
@@ -42,6 +45,7 @@ module.exports = {
     house : {
         items : [
             {
+                type: 'sprite',
                 position: { x:0, y:0 },
                 size: { width:640, height:480 },
                 image:  '/resources/houseInside.png' ,
@@ -56,6 +60,7 @@ module.exports = {
                 z: -1
             },
             {
+                type : 'sprite',
                 position: { x:200, y:200 },
                 size: { width:16, height:16 },
                 image:  '/resources/box.png' ,
