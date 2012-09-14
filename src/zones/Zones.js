@@ -28,6 +28,13 @@ module.exports = {
                     {x:78,y:76,width:45,height:44},
                 ],
                 z: -1
+            },
+            {
+                type : 'node',
+                node : 'environment/Tree',
+                params: { type:3 },
+                z: 1,
+                position : { x:400, y:10 }
             }
         ],
         position : { 
