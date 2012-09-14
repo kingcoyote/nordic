@@ -44,6 +44,23 @@ function Layer(zone) {
                     }
                 }
                 break;
+            case 'node':
+                node = require('/nodes/' + item.node)
+                node = new node(item.params)
+                node.position = item.position
+                this.addChild({ child:node, z:item.z })
+                var box = node.boundingBox
+                for(var i in node.sandbags) {
+                    var s = node.sandbags[i]
+                      , sandbag = new geo.Rect(
+                            box.origin.x + s.x,
+                            box.origin.y + s.y,
+                            s.width,
+                            s.height
+                        )
+                    this.sandbags.push(sandbag)
+                }
+                break;
         }
     }
 
