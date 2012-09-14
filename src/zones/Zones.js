@@ -34,7 +34,7 @@ module.exports = {
                 node : 'environment/Tree',
                 params: { type:3 },
                 z: 1,
-                position : { x:400, y:10 }
+                position : { x:300, y:100 }
             }
         ],
         position : { 

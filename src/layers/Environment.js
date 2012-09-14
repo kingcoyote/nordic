@@ -59,19 +59,19 @@ Layer.inherit(cocos.nodes.Layer, {
                     for(var i in node.sandbags) {
                         var s = node.sandbags[i]
                           , sandbag = new geo.Rect(
-                                box.origin.x + s.x,
-                                box.origin.y + s.y,
-                                s.width,
-                                s.height
+                                box.origin.x + s.origin.x,
+                                box.origin.y + s.origin.y,
+                                s.size.width,
+                                s.size.height
                             )
                         this.sandbags.push(sandbag)
                     }
                     for(var i in node.sky) {
-                        var new_pos = node.position
+                        var new_pos = util.copy(node.position)
                           , sprite = node.sky[i]
 
                         new_pos.x += sprite.position.x
-                        new_pos.y += sprite.position.y
+                        new_pos.y += sprite.position.y 
                         sprite.position = new_pos
 
                         this.parent.addToSky(sprite)

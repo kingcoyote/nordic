@@ -6,6 +6,8 @@ function Tree(params) {
 
     this.anchorPoint = new geo.Point(0, 0)
 
+    this.contentSize = this.types[params.type].contentSize
+
     var base = new cocos.nodes.Sprite(this.types[params.type].baseSprite)
     base.anchorPoint = new geo.Point(0, 0)
     base.position = this.types[params.type].baseOffset
@@ -16,6 +18,7 @@ function Tree(params) {
     tree.position = this.types[params.type].treeOffset
     
     this.sky = [tree]
+    this.sandbags = [base.boundingBox]
 }
 
 
@@ -31,7 +34,8 @@ Tree.inherit(cocos.nodes.Node, {
             baseSprite : { file:'/resources/trees.png', rect: new geo.Rect(125, 114, 23, 14) },
             baseOffset : new geo.Point(17, 0),
             treeSprite : { file:'/resources/trees.png', rect: new geo.Rect(108, 18, 57, 96) },
-            treeOffset : new geo.Point(0, 14) 
+            treeOffset : new geo.Point(0, 14),
+            contentSize : new geo.Size(57,110)
         }
     }
 })
