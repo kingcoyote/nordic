@@ -7,19 +7,15 @@ function Tree(params) {
     this.anchorPoint = new geo.Point(0, 0)
 
     var base = new cocos.nodes.Sprite(this.types[params.type].baseSprite)
-    var tree = new cocos.nodes.Sprite(this.types[params.type].treeSprite)
-
     base.anchorPoint = new geo.Point(0, 0)
-    tree.anchorPoint = new geo.Point(0, 0)
-
     base.position = this.types[params.type].baseOffset
-    tree.position = this.types[params.type].treeOffset
-
-    this.base = base
-    this.tree = tree
-
     this.addChild(base)
-    this.addChild({ child: tree, z: 100 })
+
+    var tree = new cocos.nodes.Sprite(this.types[params.type].treeSprite)
+    tree.anchorPoint = new geo.Point(0, 0)
+    tree.position = this.types[params.type].treeOffset
+    
+    this.sky = [tree]
 }
 
 

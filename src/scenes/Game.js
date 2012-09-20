@@ -2,6 +2,7 @@ var cocos = require('cocos2d')
   , geo = require('geometry')
   , Player = require('/layers/Player')
   , Environment    = require('/layers/Environment')
+  , EnvironmentSky = require('/layers/EnvironmentSky')
   , Hud = require('/layers/Hud')
 
 
@@ -11,14 +12,17 @@ var Scene = {
         var scene = new cocos.nodes.Scene()
           , player = new Player()
           , environment    = new Environment('main')
+          , environmentSky = new EnvironmentSky()
           , hud = new Hud()
 
         // Add our layer to the scene
         scene.addChild({ child:environment, z: -1})
         scene.addChild({ child:player, z: 5})
+        scene.addChild({ child:environmentSky, z:10 })
         scene.addChild({ child:hud, z: 999999 })
 
         scene.environment = environment;
+        scene.environmentSky = environmentSky
         scene.player = player;
 
         scene.player.setPosition(scene.environment.getPosition('default'))
@@ -27,6 +31,7 @@ var Scene = {
         scene.updatePlayerPosition = this.updatePlayerPosition
         scene.getPlayerStartPoint = this.getPlayerStartPoint
         scene.changeZones = this.changeZones
+        scene.addToSky = this.addToSky
 
         return scene;
     },
@@ -79,14 +84,20 @@ var Scene = {
 
 
             this.environment.adjustOffset(x, y)
+            this.environmentSky.adjustOffset(x, y)
             this.player.adjustOffset(x, y)
         }
     },
     changeZones: function(zone, name) {
         this.removeChild(this.environment);
         this.environment = new Environment(zone);
+        this.environmentSky = new EnvironmentSky();
         this.addChild({ child:this.environment, z:-1 });
+        this.addChild({ child:this.environmentSky, z:10 });
         this.player.setPosition(this.environment.getPosition(name))
+    },
+    addToSky: function(sprite) {
+        this.environmentSky.addSprite(sprite)
     },
 }
 
