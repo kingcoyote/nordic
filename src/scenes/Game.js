@@ -90,8 +90,9 @@ var Scene = {
     },
     changeZones: function(zone, name) {
         this.removeChild(this.environment);
-        this.environment = new Environment(zone);
+        this.removeChild(this.environmentSky);
         this.environmentSky = new EnvironmentSky();
+        this.environment = new Environment(zone);
         this.addChild({ child:this.environment, z:-1 });
         this.addChild({ child:this.environmentSky, z:10 });
         this.player.setPosition(this.environment.getPosition(name))
