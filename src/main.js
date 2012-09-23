@@ -6,7 +6,7 @@ var cocos  = require('cocos2d')   // Import the cocos2d module
   , events = require('events')    // Import the events module
   , geo    = require('geometry')  // Import the geometry module
   , ccp    = geo.ccp              // Short hand to create points
-  , Scene  = require('/scenes/Game')
+  , Scene  = require('/scenes/Scene')
   , Director = cocos.Director
 
 /**
@@ -21,12 +21,11 @@ function main () {
     // Wait for the director to finish preloading our assets
     events.addListener(director, 'ready', function (director) {
         // Run the scene
-        director.replaceScene(Scene.create())
+        director.replaceScene(Scene.create('MainMenu'))
     })
 
     // Preload our assets
     director.runPreloadScene()
 }
-
 
 exports.main = main
