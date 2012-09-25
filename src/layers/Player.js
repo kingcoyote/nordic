@@ -115,6 +115,7 @@ Layer.inherit(cocos.nodes.Layer, {
             return
         }
 
+        tempBox = util.copy(box)
         tempBox.origin.y += vel.y * this.player.speed * dt
 
         if (this.parent.playerAllowed(tempBox)) {
